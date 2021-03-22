@@ -1,0 +1,120 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.master.cs" Inherits="WebApp.MainMaster" %>
+<%@ Register TagPrefix="custom" TagName="StaticPageList" Src="~/Controls/StaticPageList.ascx" %>
+<%@ Register TagPrefix="custom" TagName="CategoryList" Src="~/Controls/CategoryList.ascx" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="~/Content/Style.css" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <title></title>
+</head>
+<body>
+    <form id="MainMasterForm" runat="server">
+        <div>
+            <header runat="server" id="pageHeader" class="darkBackground">
+                <div class="logo">
+                    <a href="/">
+                        <h3><%= Resources.Language.SiteName %></h3>
+                    </a>
+                </div>
+                <div class="headerMenu">
+                    <nav>
+                        <custom:StaticPageList runat="server" />
+                        <custom:CategoryList runat="server" />
+                    </nav>
+                </div>
+                <div class="headerProfile">
+                    <% if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
+                        { 
+                            if (CurrentUser == null) SignOut();
+                            %>
+                        <p class="popupTrigger" onmouseover="setUserPopupDisplay('block')"><%= CurrentUser.UserName %></p>
+                        <div id="userpopup" class="popup verticalMenu" style="display: none;">
+                            <p style="text-align: end;"><%= CurrentUser.UserName %></p>
+                            <a href="/profile"><%= Resources.Language.MyProfile %></a>
+                            <a href="/profile/writepost"><%= Resources.Language.PostEditor %></a>
+                            <a href="/profile/settings"><%= Resources.Language.Settings %></a>
+                            <asp:LinkButton runat="server" ID="LogOutButton" OnClick="LogOutButton_Click">
+                                <%= Resources.Language.LogOut %>
+                            </asp:LinkButton>
+                        </div>
+                    <% }
+                        else
+                        { %>
+                    <span>
+                         <a href="/login"><%= Resources.Language.LogIn %></a>
+                    </span>
+                    <% } %>
+                </div>
+            </header>
+            <div id="pageContent">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <footer id="pageFooter">
+                <div id="footerContent" class="darkBackground bs-row">
+                    <section>
+                        <h3><%= Resources.Language.Categories %></h3>
+                        <div class="verticalMenu">
+                            <custom:CategoryList runat="server" />
+                        </div>
+                    </section>
+                    <section>
+                        <h3><%= Resources.Language.Sitemap %></h3>
+                        <div class="verticalMenu">
+                            <custom:StaticPageList runat="server"/>
+                            <% if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
+                                {
+                                    %>
+                            <span>
+                                <a href="/profile"><%= Resources.Language.MyProfile %></a>
+                            </span>
+                            <span>
+                                <a href="/profile/writepost"><%= Resources.Language.PostEditor %></a>
+                            </span>
+                            <% }
+                                else
+                                { %>
+                            <span>
+                                <a href="/login"><%= Resources.Language.LogIn %></a>
+                            </span>
+                            <span>
+                                <a href="/register"><%= Resources.Language.Register %></a>
+                            </span>
+                            <% } %>
+                        </div>
+                    </section>
+                </div>
+                <div id="footerCopyright" class="darkBackground">
+                    <p>
+                        <a href="/"><%= Resources.Language.SiteName %></a>
+                        &#169; <%= DateTime.Now.Year %>
+                        <a href="https://github.com/SergeiFdrv">SergeiFDRV</a>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </form>
+    <script src="/Content/JavaScript.js"></script>
+    <script>
+        var currentLinks = document.querySelectorAll('a[href="' + '<%= Page.Request.RawUrl %>' + '"]');
+        currentLinks.forEach(link => { link.classList.add('currentURL') });
+    </script>
+    <script>
+        if (window.navigator.userAgent.toLowerCase().indexOf('trident') > -1) {
+            document.body.innerHTML =
+                "Hellow. Apperently you are using Internet Explorer, " +
+                "a long dead web browser this website does not support. " +
+                "We will be glad to see you back with a normal browser<br/>" +
+                "Привет. Похоже, Вы используете Internet Explorer, " +
+                "давно мертвый веб-браузер, не поддерживаемый данным сайтом. " +
+                "Будем рады видеть Вас на нормальном браузере";
+        }
+    </script>
+</body>
+</html>

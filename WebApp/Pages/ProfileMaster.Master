@@ -1,0 +1,19 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ProfileMaster.Master.cs" Inherits="WebApp.Pages.ProfileMaster" MasterPageFile="~/MainMaster.Master" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="head">
+    <asp:ContentPlaceHolder runat="server" ID="head"></asp:ContentPlaceHolder>
+    <title>Profile page</title>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    <div id="profileContent">
+        <div class="verticalMenu">
+            <a href="/profile"><%= Resources.Language.MyProfile %></a>
+            <a href="/profile/writepost"><%= Resources.Language.PostEditor %></a>
+            <a href="/profile/settings"><%= Resources.Language.Settings %></a>
+        </div>
+        <div id="profileMainContent" class="verticalContent">
+            <asp:ContentPlaceHolder runat="server" ID="ProfileContent">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>
