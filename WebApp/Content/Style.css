@@ -89,10 +89,18 @@ table {
 }
 
 a.currentURL {
-    color: lime !important;
+    color: navy !important;
 }
 
 a.currentURL:hover {
+    color: midnightblue !important;
+}
+
+.darkBackground a.currentURL {
+    color: lime !important;
+}
+
+.darkBackground a.currentURL:hover {
     color: lawngreen !important;
 }
 
@@ -211,7 +219,7 @@ a.currentURL:hover {
     min-height: calc(100vh - 100px);
 }
 
-#pageContent > * {
+#pageContent > div {
     margin: auto;
     width: 80vw;
 }
@@ -220,7 +228,8 @@ a.currentURL:hover {
     margin: 16px auto;
 }
 
-#pageContent > * > * {
+#pageContent > * > *,
+table h1, table h2, table h3, table h4, table h5, table h6 {
     margin: 8px auto;
 }
 
@@ -245,6 +254,22 @@ a.currentURL:hover {
     display: flex;
     padding: 8px 64px 16px 64px;
     background: linear-gradient(115deg, #012, #032);
+    /*
+    background-size: 1000%;
+    background: radial-gradient(ellipse at 50% 150%, #531, #012);
+    animation: streetlights 5s cubic-bezier(1, 1, 1, 1) infinite;*/
+}
+
+@keyframes streetlights {
+    0% {
+        background-position: 100% 500%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 0% 500%;
+    }
 }
 
 #footerContent > * {
