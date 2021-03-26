@@ -10,6 +10,6 @@ namespace WebApp.Controls
     {
         protected void Page_Load(object sender, EventArgs e) { }
 
-        public List<Category> Categories { get; set; } = Data.Categories.All.ToList();
+        public IEnumerable<Category> Categories { get; set; } = Data.Categories.All;
     }
 }

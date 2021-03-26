@@ -14,7 +14,7 @@ namespace WebApp.Pages
                 CurrentUser = context.Set<User>()
                     .Include(u => u.Posts).Include(u => u.Comments)
                     .FirstOrDefault(u => u.UserLogin == User.Identity.Name);
-                PostTiles.Posts = CurrentUser.Posts.ToList();
+                PostTiles.Posts = CurrentUser.Posts;
             }
         }
 

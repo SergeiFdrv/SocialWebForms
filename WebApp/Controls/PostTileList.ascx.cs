@@ -12,6 +12,6 @@ namespace WebApp.Controls
     {
         protected void Page_Load(object sender, EventArgs e) { }
 
-        public List<Post> Posts { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
     }
 }

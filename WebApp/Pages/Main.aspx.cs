@@ -22,6 +22,6 @@ namespace WebApp.Pages
 
         public List<Hashtag> Tags { get; set; }
 
-        public List<Post> Posts { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
     }
 }
