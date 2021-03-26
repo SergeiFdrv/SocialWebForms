@@ -37,7 +37,6 @@ namespace WebApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CommentEditedUTC")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("CommentParentID")
@@ -106,7 +105,6 @@ namespace WebApp.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("PostEditedUTC")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PostRP")

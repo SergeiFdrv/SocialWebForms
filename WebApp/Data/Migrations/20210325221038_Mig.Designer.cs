@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Data.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210320114547_Mig")]
+    [Migration("20210325221038_Mig")]
     partial class Mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,6 @@ namespace WebApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CommentEditedUTC")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("CommentParentID")
@@ -108,7 +107,6 @@ namespace WebApp.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("PostEditedUTC")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PostRP")

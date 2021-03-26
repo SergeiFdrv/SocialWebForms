@@ -29,8 +29,7 @@ namespace WebApp.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CommentPostedUTC { get; set; } = DateTime.UtcNow;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CommentEditedUTC { get; set; } = DateTime.UtcNow;
+        public DateTime CommentEditedUTC { get; set; }
 
         public int? CommentParentID { get; set; }
 

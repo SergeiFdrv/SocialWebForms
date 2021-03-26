@@ -196,6 +196,7 @@
   <ItemGroup>
     <Content Include="Content\Style.css" />
     <Content Include="Controls\CategoryList.ascx" />
+    <Content Include="Controls\CommentSection.ascx" />
     <Content Include="Controls\PostTileList.ascx" />
     <Content Include="favicon.ico" />
     <Content Include="Pages\Branch.aspx" />
@@ -234,6 +235,13 @@
     <Compile Include="Controls\CategoryList.ascx.designer.cs">
       <DependentUpon>CategoryList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CommentSection.ascx.cs">
+      <DependentUpon>CommentSection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CommentSection.ascx.designer.cs">
+      <DependentUpon>CommentSection.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PostTileList.ascx.cs">
       <DependentUpon>PostTileList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -253,9 +261,9 @@
       <DependentUpon>Language.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="Data\IDataService.cs" />
-    <Compile Include="Data\Migrations\20210320114547_Mig.cs" />
-    <Compile Include="Data\Migrations\20210320114547_Mig.designer.cs">
-      <DependentUpon>20210320114547_Mig.cs</DependentUpon>
+    <Compile Include="Data\Migrations\20210325221038_Mig.cs" />
+    <Compile Include="Data\Migrations\20210325221038_Mig.designer.cs">
+      <DependentUpon>20210325221038_Mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Migrations\DBContextModelSnapshot.cs" />
     <Compile Include="Pages\Branch.aspx.cs">
