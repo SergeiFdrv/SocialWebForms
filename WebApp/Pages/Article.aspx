@@ -12,15 +12,15 @@
             <h1><%= Post.PostTitle %></h1>
         </div>
         <div class="bs-container">
-            <%= Server.HtmlDecode(Post.PostContent) %>
+            <div class="postContent">
+                <%= Server.HtmlDecode(Post.PostContent) %>
+            </div>
         </div>
+        <div class="bs-container childrenInlineBlock">
         <% if (Post.PostAuthor != null)
            { %>
-        <div class="bs-container">
             <h4><%= Post.PostAuthor.UserName %></h4>
-        </div>
         <% } %>
-        <div class="bs-container">
             <h4><a href="#">Like</a> <%= Post.PostRP %> <a href="#">Dislike</a></h4>
         </div>
         <div class="bs-container">

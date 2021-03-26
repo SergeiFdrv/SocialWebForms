@@ -5,7 +5,7 @@
     <title>Main page</title>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="mainContent">
+    <div>
         <div class="bs-container">
             <h3>Добро пожаловать</h3>
             <p><%= Resources.Language.Description %></p>

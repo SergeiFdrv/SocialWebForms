@@ -5,11 +5,19 @@
     <div class="itemTile">
         <a class="entryLink" href="<%= GetRouteUrl("post-id-title", new { id = p.PostID, title = p.Slug }) %>">
             <h3><%= p.PostTitle %></h3>
-            <h6><%= (p.PostAuthor != null) ? $"{p.PostAuthor.UserName}, {p.PostDateUTC}" : $"{p.PostDateUTC}" %></h6>
-            <% if (p.PostAuthor?.UserLogin == System.Web.HttpContext.Current.User?.Identity.Name)
-               { %>
-            <a class="stickToBottom" href="<%= GetRouteUrl("user-editpost", new { id = p.PostID }) %>">Edit</a>
-            <% } %>
         </a>
+        <div class="stickToBottom">
+            <h6>
+                <% if (p.PostAuthor != null)
+                   { %>
+                <%= p.PostAuthor.UserName %>
+                    <% if (p.PostAuthor.UserLogin == System.Web.HttpContext.Current.User?.Identity.Name)
+                       { %>
+                (<a href="<%= GetRouteUrl("user-editpost", new { id = p.PostID }) %>">Edit</a>)
+                    <% } %>
+                <% } %>
+                <%= p.PostDateUTC %>
+            </h6>
+        </div>
     </div>
 <%} %>
