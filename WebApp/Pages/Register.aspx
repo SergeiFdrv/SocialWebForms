@@ -4,11 +4,15 @@
     <title><%= Resources.Language.Register %></title>
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-    <div class="marginAuto">
-        <div>
-            <h3><%= Resources.Language.Register %></h3>
-        </div>
-        <table runat="server">
+    <table runat="server">
+        <thead>
+            <tr>
+                <td>
+                    <h3><%= Resources.Language.Register %></h3>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>
                     <label runat="server"><%= Resources.Language.AccountLogin %></label>
@@ -81,6 +85,6 @@
                     <asp:Button runat="server" ID="SubmitButton" OnClick="Submit_Click" Text="<%$ Resources: Language, Submit %>" />
                 </td>
             </tr>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </asp:Content>
