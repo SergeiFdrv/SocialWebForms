@@ -19,17 +19,31 @@
         <div class="bs-container childrenInlineBlock">
         <% if (Post.PostAuthor != null)
            { %>
-            <h4><%= Post.PostAuthor.UserName %></h4>
+            <h4>
+                <%= Post.PostAuthor.UserName %>
+                <% if (Post.PostAuthor.UserLogin == User?.Identity.Name)
+                   { %>
+                (<a href="<%= GetRouteUrl("user-editpost", new { id = Post.PostID }) %>">Edit</a>)
+                <% } %>
+            </h4>
         <% } %>
             <h4><a href="#">Like</a> <%= Post.PostRP %> <a href="#">Dislike</a></h4>
         </div>
         <div class="bs-container">
             <h3>Comments</h3>
         </div>
+        <% if (User.Identity.IsAuthenticated)
+           { %>
         <div class="bs-container">
             <textarea id="commentEditor" name="ckeditor0"></textarea>
             <asp:Button runat="server" Text="<%$ Resources: Language, Submit %>" id="CommentSubmitButton" OnClick="CommentSubmit_Click" />
         </div>
+        <% }
+           else { %>
+        <div class="bs-container">
+            <p>Log in to make comments</p>
+        </div>
+           <% } %>
         <% if (PostComments.Any())
             { %>
         <div class="bs-container">
