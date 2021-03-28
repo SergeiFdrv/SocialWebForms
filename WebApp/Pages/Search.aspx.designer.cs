@@ -13,5 +13,32 @@ namespace WebApp.Pages
 
     public partial class Search
     {
+
+        /// <summary>
+        /// SearchBoxInput элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SearchBoxInput;
+
+        /// <summary>
+        /// SearchSubmit элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SearchSubmit;
+
+        /// <summary>
+        /// RelevantPosts элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::WebApp.Controls.PostTileList RelevantPosts;
     }
 }
