@@ -228,6 +228,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Category.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controls\CategoryList.ascx.cs">
       <DependentUpon>CategoryList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -260,7 +261,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.ru.resx</DependentUpon>
     </Compile>
-    <Compile Include="Data\IDataService.cs" />
     <Compile Include="Data\Migrations\20210325221038_Mig.cs" />
     <Compile Include="Data\Migrations\20210325221038_Mig.designer.cs">
       <DependentUpon>20210325221038_Mig.cs</DependentUpon>

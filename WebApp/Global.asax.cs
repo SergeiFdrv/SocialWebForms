@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http;
 using System.Web.Routing;
 
 namespace WebApp
@@ -12,17 +13,32 @@ namespace WebApp
 
         protected void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapPageRoute("category-posts", "category/{category}", "~/Pages/Branch.aspx");
-            routes.MapPageRoute("user-login", "login", "~/Pages/Login.aspx");
-            routes.MapPageRoute("user-register", "register", "~/Pages/Register.aspx");
-            routes.MapPageRoute("user-profile", "profile", "~/Pages/Profile.aspx");
-            routes.MapPageRoute("user-settings", "profile/settings", "~/Pages/ProfileSettings.aspx");
-            routes.MapPageRoute("user-writepost", "profile/writepost", "~/Pages/PostEditor.aspx");
-            routes.MapPageRoute("user-editpost", "profile/writepost/{id}", "~/Pages/PostEditor.aspx");
-            routes.MapPageRoute("search-page", "search", "~/Pages/Search.aspx");
-            routes.MapPageRoute("post-id", "post/{id}", "~/Pages/Article.aspx");
-            routes.MapPageRoute("post-id-title", "post/{id}/{title}", "~/Pages/Article.aspx");
-            routes.MapPageRoute("error", "error/{id}", "~/Pages/Error.aspx");
+            routes.MapPageRoute("category-posts",
+                "category/{category}", "~/Pages/Branch.aspx");
+            routes.MapPageRoute("user-login",
+                "login", "~/Pages/Login.aspx");
+            routes.MapPageRoute("user-register",
+                "register", "~/Pages/Register.aspx");
+            routes.MapPageRoute("user-profile",
+                "profile", "~/Pages/Profile.aspx");
+            routes.MapPageRoute("user-settings",
+                "profile/settings", "~/Pages/ProfileSettings.aspx");
+            routes.MapPageRoute("user-writepost",
+                "profile/writepost", "~/Pages/PostEditor.aspx");
+            routes.MapPageRoute("user-editpost",
+                "profile/writepost/{id}", "~/Pages/PostEditor.aspx");
+            routes.MapPageRoute("search-page",
+                "search", "~/Pages/Search.aspx");
+            routes.MapPageRoute("post-id",
+                "post/{id}", "~/Pages/Article.aspx");
+            routes.MapPageRoute("post-id-title",
+                "post/{id}/{title}", "~/Pages/Article.aspx");
+            routes.MapPageRoute("error",
+                "error/{id}", "~/Pages/Error.aspx");
+            // API
+            routes.MapHttpRoute("default-api-action", "api/{controller}/action/{action}");
+            routes.MapHttpRoute("default-api", "api/{controller}/{id}",
+                new { id = RouteParameter.Optional });
         }
     }
 }
