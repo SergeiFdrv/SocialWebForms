@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Security;
 using System.Web.UI;
 using WebApp.Data;
@@ -17,6 +19,19 @@ namespace WebApp.Pages
         protected void SubmitUserData()
         {
             if (userpassword.Value != userpasswordconfirm.Value) return;
+            User user = new User
+            {
+                UserLogin = userlogin.Value,
+                UserName = username.Value,
+                UserPass = BCrypt.Net.BCrypt.HashPassword(userpassword.Value),
+                UserEMail = useremail.Value
+            };
+            HTTPClient.Instance.BaseAddress =
+                new Uri(Page.Request.Url.Scheme + "://" + Page.Request.Url.Authority);
+            HttpResponseMessage message = HTTPClient.Instance
+                .PostAsXmlAsync("api/user/signup", user).Result;
+            message.EnsureSuccessStatusCode();
+            /*
             using (var context = new DBContext())
             {
                 User user = new User
@@ -44,11 +59,11 @@ namespace WebApp.Pages
                     else throw e;
                     return;
                 }
-            };
+            };*/
             FormsAuthentication.SetAuthCookie(userlogin.Value, true);
             using (DBContext context = new DBContext())
             {
-                User user = context.Set<User>().First(u => u.UserLogin == userlogin.Value);
+                user = context.Set<User>().First(u => u.UserLogin == userlogin.Value);
                 user.UserLastLoginUTC = DateTime.UtcNow;
                 context.Set<User>().Update(user);
                 context.SaveChanges();

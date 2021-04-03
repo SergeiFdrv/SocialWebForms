@@ -15,7 +15,9 @@ namespace WebApp.Controllers
     /// </summary>
     public class UserController : ApiController
     {
-        public void Login(string login, string password, bool persistentCookie)
+        // https://localhost:44397/api/user/login?login=serg&password=admin&persistentcookie=true
+        [HttpGet]
+        public string Login(string login, string password, bool persistentCookie = true)
         {
             if (ValidateUser(login, password))
             {
@@ -39,11 +41,13 @@ namespace WebApp.Controllers
                 Response.Redirect(strRedirect, true);
                 */
                 // FormsAuthentication.Authenticate(userlogin.Value, chkPersistCookie.Checked);
-                Authenticate(login, persistentCookie);
+                //return Authenticate(login, persistentCookie);
+                return "OK";
             }
+            return "Validation failed";
         }
 
-        private static bool ValidateUser(string userName, string passWord)
+        private static bool ValidateUser(string userName, string passWord, bool hashPassword = false)
         {
             string lookupPassword = null;
 
@@ -90,17 +94,12 @@ namespace WebApp.Controllers
                 || BCrypt.Net.BCrypt.Verify(passWord, lookupPassword); // TODO: delete this line
         }
 
-        public void SignUp(string login, string password, string name, string email)
+        [HttpPost]
+        public void SignUp(User user)
         {
             using (var context = new DBContext())
             {
-                User user = new User
-                {
-                    UserLogin = login,
-                    UserName = name,
-                    UserPass = BCrypt.Net.BCrypt.HashPassword(password),
-                    UserEMail = email
-                };
+                //user.UserPass = BCrypt.Net.BCrypt.HashPassword(user.UserPass);
                 context.Add(user);
                 try
                 {
@@ -111,31 +110,52 @@ namespace WebApp.Controllers
                     throw;
                 }
             };
-            Authenticate(login);
         }
 
-        private static void Authenticate(string login, bool persistentCookie = true)
+        [HttpPatch, HttpGet]
+        public string Authenticate(string login, bool persistentCookie = true)
         {
+            System.Diagnostics.Trace.WriteLine(User);
             FormsAuthentication.SetAuthCookie(login, persistentCookie);
+            if (User.Identity.IsAuthenticated)
+            {
+                using (DBContext context = new DBContext())
+                {
+                    User user = context.Set<User>().First(u => u.UserLogin == login);
+                    user.UserLastLoginUTC = DateTime.UtcNow;
+                    context.Set<User>().Update(user);
+                    context.SaveChanges();
+                }
+                return "OK";
+            }
+            return "Authentication failed";
+        }
+
+        [HttpGet]
+        private static bool Authenticate(User user, bool persistentCookie = true)
+        {
+            FormsAuthentication.SetAuthCookie(user.UserLogin, persistentCookie);
             using (DBContext context = new DBContext())
             {
-                User user = context.Set<User>().First(u => u.UserLogin == login);
                 user.UserLastLoginUTC = DateTime.UtcNow;
                 context.Set<User>().Update(user);
                 context.SaveChanges();
             }
+            return true;
         }
 
-        // GET api/<controller>
+        // GET api/user
         public IEnumerable<User> Get()
         {
+            List<User> res;
             using (DBContext context = new DBContext())
             {
-                return context.Set<User>().AsEnumerable();
+                res = context.Set<User>().ToList();
             }
+            return res;
         }
 
-        // GET api/<controller>/5
+        // GET api/user/5
         public User Get(int id)
         {
             using (DBContext context = new DBContext())
@@ -144,17 +164,17 @@ namespace WebApp.Controllers
             }
         }
 
-        // POST api/<controller>
+        // POST api/user
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<controller>/5
+        // PUT api/user/5
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/user/5
         public void Delete(int id)
         {
         }

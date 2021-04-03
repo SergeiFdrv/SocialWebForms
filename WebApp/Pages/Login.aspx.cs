@@ -66,7 +66,15 @@ namespace WebApp.Pages
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            if (ValidateUser(userlogin.Value, userpassword.Value))
+            //HTTPClient.Instance.BaseAddress =
+            //    new Uri(Page.Request.Url.Scheme + "://" + Page.Request.Url.Authority);
+            var response = HTTPClient.Instance
+                .GetAsync("api/user/login?login=" + userlogin.Value
+                + "&password=" + /*BCrypt.Net.BCrypt.HashPassword(*/userpassword.Value/*)*/
+                + "&persistentcookie=" + chkPersistCookie.Checked.ToString()).Result;
+            if (response.IsSuccessStatusCode &&
+                response.Content.ReadAsStringAsync().Result == "\"OK\"")
+            //if (ValidateUser(userlogin.Value, userpassword.Value))
             {
                 /*
                 FormsAuthenticationTicket tkt;
@@ -88,6 +96,19 @@ namespace WebApp.Pages
                 Response.Redirect(strRedirect, true);
                 */
                 // FormsAuthentication.Authenticate(userlogin.Value, chkPersistCookie.Checked);
+                /*response = HTTPClient.Instance
+                    .GetAsync($"api/user/authenticate?login=" + userlogin.Value
+                    + "&persistentcookie=" + chkPersistCookie.Checked)
+                    .Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("bad status code: " + response.StatusCode);
+                }
+                if (response.Content.ReadAsStringAsync().Result != "\"OK\"")
+                {
+                    throw new Exception("not OK");
+                }
+                */
                 FormsAuthentication.SetAuthCookie(userlogin.Value, chkPersistCookie.Checked);
                 using (DBContext context = new DBContext())
                 {
