@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using System.Web.Http.Routing.Constraints;
 using System.Web.Routing;
 
 namespace WebApp
@@ -36,9 +37,10 @@ namespace WebApp
             routes.MapPageRoute("error",
                 "error/{id}", "~/Pages/Error.aspx");
             // API
-            routes.MapHttpRoute("default-api-action", "api/{controller}/action/{action}");
             routes.MapHttpRoute("default-api", "api/{controller}/{id}",
-                new { id = RouteParameter.Optional });
+                new { id = RouteParameter.Optional }, new { id = new IntRouteConstraint() });
+            routes.MapHttpRoute("default-api-action", "api/{controller}/{action}",
+                new { action = RouteParameter.Optional }, new { action = new AlphaRouteConstraint() });
         }
     }
 }
