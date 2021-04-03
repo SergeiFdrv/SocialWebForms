@@ -266,6 +266,7 @@
       <DependentUpon>20210325221038_Mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Migrations\DBContextModelSnapshot.cs" />
+    <Compile Include="HTTPClient.cs" />
     <Compile Include="Pages\Branch.aspx.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
