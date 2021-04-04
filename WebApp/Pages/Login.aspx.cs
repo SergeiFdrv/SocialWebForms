@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using WebApp.Data;
@@ -16,6 +17,37 @@ namespace WebApp.Pages
                 ErrorMessage.InnerText = Resources.Language.LoginFailedYouDoNotExist;
             }
         }
+
+        /// <summary>
+        /// An alternative user authentication method
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <param name="persistentCookie"></param>
+        /// <returns></returns>
+        /*private void Authenticate(string login, string password, bool persistentCookie = true)
+        {
+            FormsAuthenticationTicket tkt;
+            string cookiestr;
+            HttpCookie ck;
+            tkt = new FormsAuthenticationTicket(1, login, DateTime.Now,
+            DateTime.Now.AddMinutes(30), persistentCookie, "your custom data");
+            cookiestr = FormsAuthentication.Encrypt(tkt);
+            ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
+            if (persistentCookie)
+            {
+                ck.Expires = tkt.Expiration;
+            }
+            ck.Path = FormsAuthentication.FormsCookiePath;
+            Response.Cookies.Add(ck);
+            string strRedirect;
+            strRedirect = Request["ReturnUrl"];
+            if (strRedirect == null)
+            {
+                strRedirect = "default.aspx";
+            }
+            Response.Redirect(strRedirect, true);
+        }*/
 
         private bool ValidateUser(string userName, string passWord)
         {
