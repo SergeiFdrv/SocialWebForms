@@ -17,8 +17,14 @@ namespace WebApp
             using (DBContext context = new DBContext())
             {
                 string lookupLogin = HttpContext.Current.User?.Identity.Name;
-                CurrentUser
-                    = context.Set<User>().FirstOrDefault(u => u.UserLogin == lookupLogin);
+                if (!string.IsNullOrEmpty(lookupLogin))
+                {
+                    CurrentUser = context.Set<User>()
+                        .First(u => u.UserLogin == lookupLogin);
+                    CurrentUser.UserLastLoginUTC = DateTime.UtcNow;
+                    context.Update(CurrentUser);
+                    context.SaveChanges();
+                }
             }
         }
 

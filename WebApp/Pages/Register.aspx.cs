@@ -61,13 +61,6 @@ namespace WebApp.Pages
                 }
             };*/
             FormsAuthentication.SetAuthCookie(userlogin.Value, true);
-            using (DBContext context = new DBContext())
-            {
-                user = context.Set<User>().First(u => u.UserLogin == userlogin.Value);
-                user.UserLastLoginUTC = DateTime.UtcNow;
-                context.Set<User>().Update(user);
-                context.SaveChanges();
-            }
             string returnURL = Page.Request.Params["ReturnUrl"];
             if (!string.IsNullOrWhiteSpace(returnURL))
             {
