@@ -39,11 +39,10 @@ namespace WebApp.Pages
 
             try
             {
-                using (DBContext context = new DBContext())
-                {
-                    lookupPassword =
-                        context.Set<User>().First(u => u.UserLogin == userName).UserPass;
-                }
+                var response = HTTPClient.Instance
+                    .GetAsync("api/user/getpasswordhash?login=" + userlogin.Value).Result;
+                lookupPassword = response.Content.ReadAsStringAsync().Result;
+                if (!response.IsSuccessStatusCode) return false;
             }
             catch (Exception ex)
             {
@@ -66,49 +65,8 @@ namespace WebApp.Pages
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            //HTTPClient.Instance.BaseAddress =
-            //    new Uri(Page.Request.Url.Scheme + "://" + Page.Request.Url.Authority);
-            var response = HTTPClient.Instance
-                .GetAsync("api/user/login?login=" + userlogin.Value
-                + "&password=" + /*BCrypt.Net.BCrypt.HashPassword(*/userpassword.Value/*)*/
-                + "&persistentcookie=" + chkPersistCookie.Checked.ToString()).Result;
-            if (response.IsSuccessStatusCode &&
-                response.Content.ReadAsStringAsync().Result == "\"OK\"")
-            //if (ValidateUser(userlogin.Value, userpassword.Value))
+            if (ValidateUser(userlogin.Value, userpassword.Value))
             {
-                /*
-                FormsAuthenticationTicket tkt;
-                string cookiestr;
-                HttpCookie ck;
-                tkt = new FormsAuthenticationTicket(1, txtUserName.Value, DateTime.Now,
-                DateTime.Now.AddMinutes(30), chkPersistCookie.Checked, "your custom data");
-                cookiestr = FormsAuthentication.Encrypt(tkt);
-                ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-                if (chkPersistCookie.Checked)
-                    ck.Expires=tkt.Expiration;
-                ck.Path = FormsAuthentication.FormsCookiePath;
-                Response.Cookies.Add(ck);
-
-                string strRedirect;
-                strRedirect = Request["ReturnUrl"];
-                if (strRedirect==null)
-                    strRedirect = "default.aspx";
-                Response.Redirect(strRedirect, true);
-                */
-                // FormsAuthentication.Authenticate(userlogin.Value, chkPersistCookie.Checked);
-                /*response = HTTPClient.Instance
-                    .GetAsync($"api/user/authenticate?login=" + userlogin.Value
-                    + "&persistentcookie=" + chkPersistCookie.Checked)
-                    .Result;
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new Exception("bad status code: " + response.StatusCode);
-                }
-                if (response.Content.ReadAsStringAsync().Result != "\"OK\"")
-                {
-                    throw new Exception("not OK");
-                }
-                */
                 FormsAuthentication.SetAuthCookie(userlogin.Value, chkPersistCookie.Checked);
                 using (DBContext context = new DBContext())
                 {

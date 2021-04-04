@@ -94,6 +94,71 @@ namespace WebApp.Controllers
                 || BCrypt.Net.BCrypt.Verify(passWord, lookupPassword); // TODO: delete this line
         }
 
+        [HttpGet]
+        public IHttpActionResult GetPasswordHash(string login)
+        {
+            string lookupPassword;
+            using (DBContext context = new DBContext())
+            {
+                try
+                {
+                    lookupPassword =
+                        context.Users.First(u => u.UserLogin == login).UserPass;
+                }
+                catch (InvalidOperationException)
+                {
+                    return NotFound();
+                }
+            }
+            return ResponseMessage(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(lookupPassword)
+            });
+            /*
+            // Check for invalid userName.
+            // userName must not be null and must be between 1 and 15 characters.
+            if (string.IsNullOrWhiteSpace(userName)// || (userName.Length > 15)//)
+            {
+                System.Diagnostics.Trace.WriteLine("[ValidateUser] Input validation of userName failed.");
+                return false;
+            }
+
+            // Check for invalid passWord.
+            // passWord must not be null and must be between 1 and 25 characters.
+            if (string.IsNullOrWhiteSpace(passWord)// || (passWord.Length > 25)//)
+            {
+                System.Diagnostics.Trace.WriteLine("[ValidateUser] Input validation of passWord failed.");
+                return false;
+            }
+
+            try
+            {
+                using (DBContext context = new DBContext())
+                {
+                    lookupPassword =
+                        context.Set<User>().First(u => u.UserLogin == userName).UserPass;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Add error handling here for debugging.
+                // This error message should not be sent back to the caller.
+                System.Diagnostics.Trace.WriteLine("[ValidateUser] Exception " + ex.Message);
+            }
+
+            // If no password found, return false.
+            if (null == lookupPassword)
+            {
+                // You could write failed login attempts here to event log for additional security.
+                return false;
+            }
+
+            // Compare lookupPassword and input passWord, using a case-sensitive comparison.
+            return string.Equals(lookupPassword, passWord, StringComparison.Ordinal)
+                || BCrypt.Net.BCrypt.Verify(passWord, lookupPassword); // TODO: delete this line
+            */
+        }
+
         [HttpPost]
         public void SignUp(User user)
         {
