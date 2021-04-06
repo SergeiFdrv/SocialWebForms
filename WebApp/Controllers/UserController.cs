@@ -15,6 +15,7 @@ namespace WebApp.Controllers
     /// </summary>
     public class UserController : ApiController
     {
+        // GET api/user/getpasswordhash?login={login}
         [HttpGet]
         public IHttpActionResult GetPasswordHash(string login)
         {
@@ -37,6 +38,7 @@ namespace WebApp.Controllers
             });
         }
 
+        // POST api/user/signup
         [HttpPost]
         public void SignUp(User user)
         {

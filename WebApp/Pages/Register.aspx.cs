@@ -26,8 +26,6 @@ namespace WebApp.Pages
                 UserPass = BCrypt.Net.BCrypt.HashPassword(userpassword.Value),
                 UserEMail = useremail.Value
             };
-            HTTPClient.Instance.BaseAddress =
-                new Uri(Page.Request.Url.Scheme + "://" + Page.Request.Url.Authority);
             HttpResponseMessage message = HTTPClient.Instance
                 .PostAsXmlAsync("api/user/signup", user).Result;
             message.EnsureSuccessStatusCode();
