@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using WebApp.Data;
-using WebApp.Models;
+using WebApp.DataClassLibrary;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Pages
 {
@@ -15,7 +15,7 @@ namespace WebApp.Pages
             {
                 CurrentUser = context.Set<User>()
                     .FirstOrDefault(u => u.UserLogin == User.Identity.Name);
-                Categories = Data.Categories.All;
+                Categories = DataClassLibrary.Categories.All;
                 if (int.TryParse(RouteData.Values["id"]?.ToString(), out int postID))
                 {
                     CurrentPost = context.Set<Post>().FirstOrDefault(p => p.PostID == postID);

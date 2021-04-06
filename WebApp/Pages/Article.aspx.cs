@@ -5,8 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Data;
-using WebApp.Models;
+using WebApp.DataClassLibrary;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Pages
 {

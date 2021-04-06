@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using WebApp.Models;
+using WebApp.DataClassLibrary;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Pages
 {
@@ -8,7 +9,7 @@ namespace WebApp.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (Data.DBContext context = new Data.DBContext())
+            using (DBContext context = new DBContext())
             {
                 CurrentUser = context.Set<User>()
                     .FirstOrDefault(u => u.UserLogin == User.Identity.Name);

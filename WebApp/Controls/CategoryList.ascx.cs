@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-using WebApp.Models;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Controls
 {
@@ -10,6 +10,7 @@ namespace WebApp.Controls
     {
         protected void Page_Load(object sender, EventArgs e) { }
 
-        public IEnumerable<Category> Categories { get; set; } = Data.Categories.All;
+        public IEnumerable<Category> Categories { get; set; }
+            = DataClassLibrary.Categories.All;
     }
 }

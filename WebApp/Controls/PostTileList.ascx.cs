@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Models;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Controls
 {

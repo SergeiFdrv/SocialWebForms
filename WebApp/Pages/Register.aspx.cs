@@ -4,8 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Security;
 using System.Web.UI;
-using WebApp.Data;
-using WebApp.Models;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Pages
 {

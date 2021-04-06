@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Data;
-using WebApp.Models;
+using WebApp.DataClassLibrary;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp
 {
@@ -44,7 +44,7 @@ namespace WebApp
         public List<Category> Categories { get; }
             // = GetEntity<Category>("CategoryName")
             //.Where(c => c.CategoryParent is null).ToList();
-            = Data.Categories.All.ToList();
+            = DataClassLibrary.Categories.All.ToList();
 
         public User CurrentUser { get; private set; }
 

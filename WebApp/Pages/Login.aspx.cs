@@ -3,8 +3,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
-using WebApp.Data;
-using WebApp.Models;
 
 namespace WebApp.Pages
 {

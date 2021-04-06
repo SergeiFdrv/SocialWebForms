@@ -250,7 +250,6 @@
     <Compile Include="Controls\PostTileList.ascx.designer.cs">
       <DependentUpon>PostTileList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Data\Categories.cs" />
     <Compile Include="App_GlobalResources\Language.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -261,11 +260,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.ru.resx</DependentUpon>
     </Compile>
-    <Compile Include="Data\Migrations\20210325221038_Mig.cs" />
-    <Compile Include="Data\Migrations\20210325221038_Mig.designer.cs">
-      <DependentUpon>20210325221038_Mig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Migrations\DBContextModelSnapshot.cs" />
     <Compile Include="HTTPClient.cs" />
     <Compile Include="Pages\Branch.aspx.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
@@ -274,14 +268,6 @@
     <Compile Include="Pages\Branch.aspx.designer.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Data\DatabaseEnums.cs" />
-    <Compile Include="Data\DBContext.cs" />
-    <Compile Include="Models\Hashtag.cs" />
-    <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\PostTagPair.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -409,6 +395,12 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebApp.DataClassLibrary\WebApp.DataClassLibrary.csproj">
+      <Project>{be5d7704-bbff-463b-a145-d7fe979b01f9}</Project>
+      <Name>WebApp.DataClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

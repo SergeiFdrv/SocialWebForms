@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using WebApp.Data;
-using WebApp.Models;
+using WebApp.DataClassLibrary;
+using WebApp.DataClassLibrary.Models;
 
 namespace WebApp.Pages
 {
@@ -15,9 +15,9 @@ namespace WebApp.Pages
                 string slug = RouteData.Values["category"]?.ToString();
                 MainCategory
                     //= context.Set<Category>().FirstOrDefault(
-                    = Data.Categories.All.FirstOrDefault(
+                    = Categories.All.FirstOrDefault(
                     c => c.CategorySlug == slug) ??
-                    Data.Categories.GetCategory(0);
+                    Categories.GetCategory(0);
                 RecentPostTiles.Posts = context.Posts.Include(p => p.PostAuthor)
                     .Where(p => p.PostCategoryID == MainCategory.CategoryID).ToList();
             }
