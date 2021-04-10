@@ -1,0 +1,78 @@
+﻿@model WebApp.MVC.Models.SignUpModel
+@{
+    ViewBag.Title = "Sign up";
+}
+
+<form method="post" class="marginAuto">
+    @Html.AntiForgeryToken()
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <h3>@Resources.Language.Register</h3>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Login, Resources.Language.AccountLogin)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Login)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Login)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Name, Resources.Language.UserName)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Name)
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password, Resources.Language.AccountPassword)
+                </td>
+                <td>
+                    @Html.PasswordFor(model => model.Password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ConfirmPassword, Resources.Language.RepeatPassword)
+                </td>
+                <td>
+                    @Html.PasswordFor(model => model.ConfirmPassword)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Email, "Email")
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" id="SignUpButton" value="@Resources.Language.Submit" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

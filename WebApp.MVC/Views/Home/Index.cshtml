@@ -1,0 +1,17 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Main page";
+}
+
+<div>
+    <div class="bs-container">
+        <h3>Добро пожаловать</h3>
+        <p>@Resources.Language.Description</p>
+    </div>
+    <div class="bs-container">
+        <div class="bs-row bs-row-4">
+            <custom:PostTiles ID="RecentPostTiles" />
+        </div>
+    </div>
+</div>

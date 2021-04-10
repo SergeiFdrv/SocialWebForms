@@ -1,0 +1,64 @@
+﻿@model WebApp.MVC.Models.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<form method="post" class="marginAuto">
+    @Html.AntiForgeryToken()
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <h3>@Resources.Language.Welcome</h3>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Name, Resources.Language.AccountLogin)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password, Resources.Language.AccountPassword)
+                </td>
+                <td>
+                    @Html.PasswordFor(model => model.Password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.PersistantCookie, Resources.Language.StayLoggedIn)</td>
+                <td>
+                    @Html.CheckBoxFor(model => model.PersistantCookie)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink(Resources.Language.ForgotAccount, "#")
+                </td>
+                <td>
+                    <input type="submit" id="LoginButton" value="@Resources.Language.Submit" />
+                    @Html.ActionLink(Resources.Language.Register, "/account/signup")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="textAlignCenter">
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessage("UserNotFound")
+        <p>@Resources.Language.LoginDescription</p>
+    </div>
+</form>

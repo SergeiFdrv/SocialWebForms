@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="~/Content/Style.css" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @{ 
+        var CurrentUser = new WebApp.DataClassLibrary.Models.User()
+        {
+            UserName = "Mock"
+        };
+    }
+    <div id="MainMasterForm">
+        <div>
+            <header id="pageHeader" class="darkBackground">
+                <div class="logo">
+                    <a href="/">
+                        <h3>@Resources.Language.SiteName</h3>
+                    </a>
+                </div>
+                <div class="headerMenu">
+                    <nav>
+                        <custom:StaticPageList />
+                        <custom:CategoryList />
+                    </nav>
+                </div>
+                <div class="headerProfile">
+                    @{
+                    if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
+                    {
+                        //if (CurrentUser == null) SignOut();
+                        <p class="popupTrigger" onmouseover="setUserPopupDisplay('block')">@CurrentUser.UserName</p>
+                        <div id="userpopup" class="popup verticalMenu" style="display: none;">
+                            <p style="text-align: end;">@CurrentUser.UserName</p>
+                            <a href="/profile">@Resources.Language.MyProfile</a>
+                            <a href="/profile/writepost">@Resources.Language.PostEditor</a>
+                            <a href="/profile/settings">@Resources.Language.Settings</a>
+                            @Html.ActionLink(Resources.Language.LogOut, "LogOut", "Account",
+                                new { returnUrl = Request.Url.AbsolutePath }, null)
+                        </div>
+                    }
+                    else
+                    {
+                        <span>
+                            @Html.ActionLink(Resources.Language.LogIn, "Login", "Account")
+                            <!--<a href="/login">@Resources.Language.LogIn</a>-->
+                        </span>
+                    }
+                    }
+                </div>
+            </header>
+            <div id="pageContent">
+                @RenderBody()
+            </div>
+            <footer id="pageFooter">
+                <div id="footerContent" class="darkBackground bs-row">
+                    <section>
+                        <h3>@Resources.Language.Categories</h3>
+                        <div class="verticalMenu">
+                            <custom:CategoryList />
+                        </div>
+                    </section>
+                    <section>
+                        <h3>@Resources.Language.Sitemap</h3>
+                        <div class="verticalMenu">
+                            <!--<custom:StaticPageList />-->
+                            @{
+                            if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
+                            {
+
+                                <span>
+                                    <a href="/profile">@Resources.Language.MyProfile</a>
+                                </span>
+                                <span>
+                                    <a href="/profile/writepost">@Resources.Language.PostEditor</a>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <a href="/login">@Resources.Language.LogIn</a>
+                                </span>
+                                <span>
+                                    <a href="/register">@Resources.Language.Register</a>
+                                </span>
+                            }
+                            }
+                         </div>
+                    </section>
+                </div>
+                <div id="footerCopyright" class="darkBackground">
+                    <p>
+                        <a href="/">@Resources.Language.SiteName</a>
+                        &#169; @DateTime.Now.Year
+                        <a href="https://github.com/SergeiFdrv">SergeiFDRV</a>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/Content/JavaScript.js"></script>
+    <script>
+        var currentLinks = document.querySelectorAll('a[href="' + '<%= Page.Request.RawUrl %>' + '"]');
+        currentLinks.forEach(link => { link.classList.add('currentURL') });
+    </script>
+    <script>
+        if (window.navigator.userAgent.toLowerCase().indexOf('trident') > -1) {
+            document.body.innerHTML =
+                "Hellow. Apperently you are using Internet Explorer, " +
+                "a long dead web browser this website does not support. " +
+                "We will be glad to see you back with a normal browser<br/>" +
+                "Привет. Похоже, Вы используете Internet Explorer, " +
+                "давно мертвый веб-браузер, не поддерживаемый данным сайтом. " +
+                "Будем рады видеть Вас на нормальном браузере";
+        }
+    </script>
+</body>
+</html>
+
+
+
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @DateTime.Now//RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>-->

@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Post";
+    var Post = new WebApp.DataClassLibrary.Models.Post();
+    var Category = WebApp.DataClassLibrary.Categories.GetCategory(0);
+    var PostComments = new List<WebApp.DataClassLibrary.Models.Comment>();
+    var UserPosts = new List<WebApp.DataClassLibrary.Models.Post>();
+    var CategoryPosts = new List<WebApp.DataClassLibrary.Models.Post>();
+}
+
+<div>
+    <div class="bs-container">
+        <h6>@Category.CategoryName</h6>
+        <h1>@Post.PostTitle</h1>
+    </div>
+    <div class="bs-container">
+        <div class="postContent">
+            @Server.HtmlDecode(Post.PostContent)
+        </div>
+    </div>
+    <div class="bs-container childrenInlineBlock">
+        @if (Post.PostAuthor != null)
+        {
+        <h4>
+            @Post.PostAuthor.UserName
+            @if (Post.PostAuthor.UserLogin == User?.Identity.Name)
+            {
+                @Html.Raw('(')@Html.ActionLink("Edit", "#", new { id = Post.PostID })@Html.Raw(')')
+            }
+        </h4>
+        }
+        <h4>
+            <a href="#">Like</a> @Post.PostRP <a href="#">Dislike</a>
+        </h4>
+    </div>
+    <div class="bs-container">
+        <h3>Comments</h3>
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <div class="bs-container">
+        <textarea id="commentEditor" name="ckeditor0"></textarea>
+        <asp:Button runat="server" Text="@Resources.Language.Submit" id="CommentSubmitButton" OnClick="CommentSubmit_Click" />
+    </div>
+    }
+    else {
+    <div class="bs-container">
+        <p>Log in to make comments</p>
+    </div>
+    }
+    @if (PostComments.Any())
+    {
+    <div class="bs-container">
+        <custom:CommentSection runat="server" ID="PostCommentSection" />
+    </div>
+    }
+    else
+    {
+    <div class="bs-container">
+        <p>Be the first to comment</p>
+    </div>
+    }
+    @if (UserPosts.Any())
+    {
+    <div class="bs-container">
+        <h3>Other posts by @Post.PostAuthor.UserName</h3>
+    </div>
+    <div class="bs-container">
+        <div class="bs-row bs-row-4">
+            <custom:PostTiles runat="server" ID="UserPostTiles" />
+        </div>
+    </div>
+    }
+    @if (CategoryPosts.Any())
+    {
+    <div class="bs-container">
+        <h3>Other posts: @Category.CategoryName</h3>
+    </div>
+    <div class="bs-container">
+        <div class="bs-row bs-row-4">
+            <custom:PostTiles runat="server" ID="CategoryPostTiles" />
+        </div>
+    </div>
+    }
+</div>
+<script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
+<script>
+        CKEDITOR.replace('ckeditor0', { htmlEncodeOutput: true });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/styles.js" type="text/javascript"></script>

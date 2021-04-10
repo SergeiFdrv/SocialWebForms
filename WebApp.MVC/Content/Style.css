@@ -1,0 +1,311 @@
+﻿/* Import fonts */
+/* Import fonts */
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Sans+Caption&display=swap'); /*PT Sans + Caption*/
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans', sans-serif;
+}
+
+a {
+    color: midnightblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: dimgray;
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'PT Sans Caption';
+}
+
+section > h3 {
+    margin: 8px 0;
+}
+
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+}
+
+input, textarea {
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+table {
+    margin: auto;
+}
+
+.width100percent {
+    width: 100%;
+}
+
+.width90percent {
+    width: 90%;
+}
+
+.darkBackground, .darkBackground p {
+    color: white;
+}
+
+.darkBackground a {
+    color: lavender;
+}
+
+.darkBackground a:hover {
+    color: cornsilk;
+}
+
+.verticalMenu > * {
+    display: block;
+}
+
+.verticalContent {
+    width: 60vw;
+    padding: 0 32px;
+}
+
+.verticalContent > table {
+    width: inherit;
+}
+
+.marginAuto {
+    margin: auto !important;
+}
+
+.marginAutoLeftRight {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo * {
+    color: white !important;
+}
+
+a.currentURL {
+    color: navy !important;
+}
+
+a.currentURL:hover {
+    color: midnightblue !important;
+}
+
+.darkBackground a.currentURL {
+    color: lime !important;
+}
+
+.darkBackground a.currentURL:hover {
+    color: lawngreen !important;
+}
+
+.popup {
+    padding: 8px;
+    background: #111;
+}
+
+.popup > * {
+    display: block;
+    margin: 8px;
+}
+
+.bs-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bs-row-4 > .itemTile {
+    flex: 0 0 25%;
+    min-width: 25%;
+}
+
+.bs-row-3 > .itemTile {
+    flex: 0 0 33.333333%;
+    min-width: 33.333333%;
+}
+
+.bs-container {
+    max-width: 80vw;
+}
+
+.bs-container .bs-row {
+    /*min-width: 75vw;*/
+}
+
+.itemTile {
+    position: relative;
+    background: linear-gradient(150deg, #8888, transparent);
+}
+
+.stickToBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.stickToBottom > * {
+    display: inline-block;
+}
+
+.backgroundTimesOfDay {
+    background: linear-gradient(0deg, #321, #012);
+    background: linear-gradient(90deg, #a50, #65c);
+    background: linear-gradient(180deg, #88d, #85a);
+    background: linear-gradient(270deg, #a50, #65c);
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.entryLink {
+    display: block;
+    color: unset;
+}
+
+.entryLink:hover {
+    color: unset;
+    background: #8884;
+}
+
+.itemTile .entryLink {
+    min-height: 150px;
+    padding-bottom: 1rem;
+}
+
+.screenCover {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    background: #0004;
+}
+
+.answerOptions > * {
+    margin: 8px 0;
+}
+
+.postContent {
+    margin: 16px;
+    font-size: 1.5rem;
+}
+
+.postContent > *{
+    margin: 1rem;
+}
+
+.postContent ul,
+.postContent ol {
+    margin: 0 3rem;
+}
+
+.childrenInlineBlock > * {
+    display: inline-block;
+}
+
+#pageHeader {
+    display: flex;
+    background: lightgray;
+    min-height: 50px;
+    padding: 0 16px;
+    background: linear-gradient(90deg, orangered, purple);
+}
+
+#pageHeader > * {
+    flex-grow: 1;
+    margin: auto;
+}
+
+#pageHeader > *:last-child {
+    flex-grow: 0;
+}
+
+#pageHeader .currentURL {
+    color: skyblue !important;
+}
+#pageHeader .currentURL:hover {
+    color: lightskyblue !important;
+}
+
+#userpopup {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#pageContent {
+    display: flex;
+    min-height: calc(100vh - 100px);
+}
+
+#pageContent > div {
+    margin: auto;
+    width: 80vw;
+}
+
+#pageContent > div {
+    margin: 16px auto;
+}
+
+#pageContent > * > *,
+table h1, table h2, table h3, table h4, table h5, table h6 {
+    margin: 8px auto;
+}
+
+#profileContent {
+    display: flex;
+}
+
+#pageFooter {
+    min-height: 50px;
+}
+
+#pageFooter h1,
+#pageFooter h2,
+#pageFooter h3,
+#pageFooter h4,
+#pageFooter h5,
+#pageFooter h6 {
+    color: lime;
+}
+
+#footerContent {
+    display: flex;
+    padding: 8px 64px 16px 64px;
+    background: linear-gradient(115deg, #012, #032);
+    /*
+    background-size: 1000%;
+    background: radial-gradient(ellipse at 50% 150%, #531, #012);
+    animation: streetlights 5s cubic-bezier(1, 1, 1, 1) infinite;*/
+}
+
+@keyframes streetlights {
+    0% {
+        background-position: 100% 500%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 0% 500%;
+    }
+}
+
+#footerContent > * {
+    flex-grow: 1;
+}
+
+#footerCopyright {
+    text-align: center;
+    background: #111;
+}
