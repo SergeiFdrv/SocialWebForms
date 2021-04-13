@@ -25,7 +25,7 @@
             @Post.PostAuthor.UserName
             @if (Post.PostAuthor.UserLogin == User?.Identity.Name)
             {
-                @Html.Raw('(')@Html.ActionLink("Edit", "#", new { id = Post.PostID })@Html.Raw(')')
+                @Html.Raw('(')@Html.ActionLink(Resources.Language.PostEditor, $"Post/Edit/{Post.PostID}")@Html.Raw(')')
             }
         </h4>
         }

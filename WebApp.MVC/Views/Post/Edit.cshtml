@@ -1,0 +1,86 @@
+﻿@model WebApp.MVC.Models.PostModel
+@using WebApp.DataClassLibrary;
+@using WebApp.DataClassLibrary.Models;
+@{
+    ViewBag.Title = "Edit";
+    var Categories = WebApp.DataClassLibrary.Categories.All;
+    if (ViewBag.CurrentPost != null)
+    {
+        Model.Title = ViewBag.CurrentPost.PostTitle;
+        Model.Content = ViewBag.CurrentPost.PostContent;
+        Model.CategoryID = ViewBag.CurrentPost.PostCategoryID;
+    }
+}
+<form method="post">
+    <table>
+        <thead>
+            <tr>
+                <td colspan="2">
+                    <h4>@Resources.Language.PostEditor</h4>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Title, Resources.Language.Title)
+                    @Html.ValidationMessageFor(model => model.Title)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Title)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CategoryID, Resources.Language.Category)
+                </td>
+                <td>
+                    <select name="categoryList">
+                        @foreach (WebApp.DataClassLibrary.Models.Category c in Categories)
+                        {
+                        <option value="@c.CategoryID"
+                            @if (Model.CategoryID == c.CategoryID)
+                               { @Html.Raw("selected") }
+                            >@c.CategoryName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="ckeditor" id="editor">@Server.HtmlDecode(Model.Content)</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" Text="@Resources.Language.Submit" id="SubmitButton" OnClick="Submit_Click" />
+                    @if (ViewBag.CurrentPost != null)
+                    {
+                    <input type="button" value="@Resources.Language.Delete" id="DeleteButton" onclick="document.getElementById('deletePostDialog').style.display = 'flex'" />
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<div id="deletePostDialog" class="screenCover" style="display: none;">
+    <div class="bs-container darkBackground popup marginAuto" style="background: #000e; border-radius: 3px;">
+        <div class="bs-row">
+            <p>Delete this post permanently?</p>
+        </div>
+        <div class="answerOptions">
+            <asp:LinkButton runat="server" CssClass="entryLink" ID="DeleteYes" OnClick="DeleteYes_Click">
+                @Resources.Language.Yes
+            </asp:LinkButton>
+            <a href="#" class="entryLink" onclick="document.getElementById('deletePostDialog').style.display = 'none'">
+                @Resources.Language.No
+            </a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+        CKEDITOR.replace('editor', { htmlEncodeOutput: true });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/styles.js" type="text/javascript"></script>
