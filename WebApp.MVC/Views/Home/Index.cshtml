@@ -1,7 +1,12 @@
-﻿
+﻿@using WebApp.DataClassLibrary.Models;
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Main page";
+    var posts = new List<Post>
+    {
+        new Post { PostID = 0, PostTitle = "T I T L E" }
+    };
 }
 
 <div>
@@ -11,7 +16,8 @@
     </div>
     <div class="bs-container">
         <div class="bs-row bs-row-4">
-            <custom:PostTiles ID="RecentPostTiles" />
+            <!--<custom:PostTiles ID="RecentPostTiles" />-->
+            @MyHelpers.PostTileList(posts)
         </div>
     </div>
 </div>

@@ -8,19 +8,22 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    @{ 
-        WebApp.DataClassLibrary.Models.User CurrentUser = null;
+    @using WebApp.DataClassLibrary;
+    @using WebApp.DataClassLibrary.Models;
+    @{
+        User CurrentUser = null;
         var identity = User?.Identity;
         if (identity?.IsAuthenticated ?? false)
         {
-            CurrentUser = GetEntity(identity.Name);
+            CurrentUser = GetUser(identity.Name);
         }
+        IEnumerable<Category> AllCategories = Categories.All;
     }
     @functions {
-        WebApp.DataClassLibrary.Models.User GetEntity(string name)
+        User GetUser(string name)
         {
-            WebApp.DataClassLibrary.Models.User user;
-            using (WebApp.DataClassLibrary.DBContext context = new WebApp.DataClassLibrary.DBContext())
+            User user;
+            using (DBContext context = new DBContext())
             {
                 user = context.Users.FirstOrDefault(u => u.UserLogin == name);
             }
@@ -37,32 +40,34 @@
                 </div>
                 <div class="headerMenu">
                     <nav>
-                        <custom:StaticPageList />
-                        <custom:CategoryList />
+                        <!--<custom:StaticPageList />
+                        <custom:CategoryList />-->
+                        @MyHelpers.StaticPageList()
+                        @MyHelpers.CategoryList(AllCategories)
                     </nav>
                 </div>
                 <div class="headerProfile">
-                @{
-                    if ((identity?.IsAuthenticated ?? false) && CurrentUser != null)
-                    {
-                        <p class="popupTrigger" onmouseover="setUserPopupDisplay('block')">@CurrentUser.UserName</p>
-                        <div id="userpopup" class="popup verticalMenu" style="display: none;">
-                            <p style="text-align: end;">@CurrentUser.UserName</p>
-                            <a href="/profile">@Resources.Language.MyProfile</a>
-                            <a href="/profile/writepost">@Resources.Language.PostEditor</a>
-                            <a href="/profile/settings">@Resources.Language.Settings</a>
-                            @Html.ActionLink(Resources.Language.LogOut, "LogOut", "Account",
-                                new { returnUrl = Request.Url.AbsolutePath }, null)
-                        </div>
+                    @{
+                        if ((identity?.IsAuthenticated ?? false) && CurrentUser != null)
+                        {
+                            <p class="popupTrigger" onmouseover="setUserPopupDisplay('block')">@CurrentUser.UserName</p>
+                            <div id="userpopup" class="popup verticalMenu" style="display: none;">
+                                <p style="text-align: end;">@CurrentUser.UserName</p>
+                                <a href="/profile">@Resources.Language.MyProfile</a>
+                                <a href="/profile/writepost">@Resources.Language.PostEditor</a>
+                                <a href="/profile/settings">@Resources.Language.Settings</a>
+                                @Html.ActionLink(Resources.Language.LogOut, "LogOut", "Account",
+                                    new { returnUrl = Request.Url.AbsolutePath }, null)
+                            </div>
+                        }
+                        else
+                        {
+                            <span>
+                                @Html.ActionLink(Resources.Language.LogIn, "Login", "Account")
+                                <!--<a href="/login">@Resources.Language.LogIn</a>-->
+                            </span>
+                        }
                     }
-                    else
-                    {
-                        <span>
-                            @Html.ActionLink(Resources.Language.LogIn, "Login", "Account")
-                            <!--<a href="/login">@Resources.Language.LogIn</a>-->
-                        </span>
-                    }
-                }
                 </div>
             </header>
             <div id="pageContent">
@@ -73,35 +78,37 @@
                     <section>
                         <h3>@Resources.Language.Categories</h3>
                         <div class="verticalMenu">
-                            <custom:CategoryList />
+                            <!--<custom:CategoryList />-->
+                            @MyHelpers.CategoryList(AllCategories)
                         </div>
                     </section>
                     <section>
                         <h3>@Resources.Language.Sitemap</h3>
                         <div class="verticalMenu">
                             <!--<custom:StaticPageList />-->
+                            @MyHelpers.StaticPageList()
                             @{
-                            if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
-                            {
+                                if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
+                                {
 
-                                <span>
-                                    <a href="/profile">@Resources.Language.MyProfile</a>
-                                </span>
-                                <span>
-                                    <a href="/profile/writepost">@Resources.Language.PostEditor</a>
-                                </span>
+                                    <span>
+                                        <a href="/profile">@Resources.Language.MyProfile</a>
+                                    </span>
+                                    <span>
+                                        <a href="/profile/writepost">@Resources.Language.PostEditor</a>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>
+                                        <a href="/login">@Resources.Language.LogIn</a>
+                                    </span>
+                                    <span>
+                                        <a href="/register">@Resources.Language.Register</a>
+                                    </span>
+                                }
                             }
-                            else
-                            {
-                                <span>
-                                    <a href="/login">@Resources.Language.LogIn</a>
-                                </span>
-                                <span>
-                                    <a href="/register">@Resources.Language.Register</a>
-                                </span>
-                            }
-                            }
-                         </div>
+                        </div>
                     </section>
                 </div>
                 <div id="footerCopyright" class="darkBackground">

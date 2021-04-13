@@ -1,0 +1,60 @@
+﻿@using WebApp.DataClassLibrary.Models;
+
+@helper CategoryList(IEnumerable<Category> categories)
+{
+    foreach (var c in categories)
+    {
+        <span>
+            <a href="/category/@c.CategorySlug">@c.CategoryName</a>
+        </span>
+    }
+}
+
+@helper CommentSection(IEnumerable<Comment> comments)
+{
+    foreach (var c in comments)
+    {
+        <div>
+            <h3>@c.CommentAuthor.UserName</h3>
+            <p>@Server.HtmlDecode(c.CommentContent)</p>
+            <h4>@c.CommentPostedUTC</h4>
+        </div>
+    }
+}
+
+@helper PostTileList(IEnumerable<Post> posts)
+{
+    foreach (var p in posts)
+    {
+        <div class="itemTile">
+            <a class="entryLink" href="/post/@p.PostID">
+                <h3>@p.PostTitle</h3>
+            </a>
+            <div class="stickToBottom">
+                <h6>
+                    @if (p.PostAuthor != null)
+                    {
+                        @p.PostAuthor.UserName;
+                        if (p.PostAuthor.UserLogin == System.Web.HttpContext.Current.User?.Identity.Name)
+                        {
+                            @Html.Raw("(")
+                            <a href="<%= GetRouteUrl(" user-editpost", new { id=p.PostID }) %>">Edit</a>
+                            @Html.Raw(")")
+                        }
+                    }
+                    @p.PostDateUTC
+                </h6>
+            </div>
+        </div>
+    }
+}
+
+@helper StaticPageList()
+{
+    <span>
+        <a href="/">@Resources.Language.Main</a>
+    </span>
+    <span>
+        <a href="/search">@Resources.Language.Search</a>
+    </span>
+}

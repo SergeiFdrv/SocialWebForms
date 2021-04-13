@@ -48,10 +48,11 @@
         <p>Log in to make comments</p>
     </div>
     }
-    @if (PostComments.Any())
+    @if (PostComments.Count > 0)
     {
     <div class="bs-container">
-        <custom:CommentSection runat="server" ID="PostCommentSection" />
+        <!--<custom:CommentSection runat="server" ID="PostCommentSection" />-->
+        @MyHelpers.CommentSection(PostComments)
     </div>
     }
     else
@@ -60,25 +61,27 @@
         <p>Be the first to comment</p>
     </div>
     }
-    @if (UserPosts.Any())
+    @if (UserPosts.Count > 0)
     {
     <div class="bs-container">
         <h3>Other posts by @Post.PostAuthor.UserName</h3>
     </div>
     <div class="bs-container">
         <div class="bs-row bs-row-4">
-            <custom:PostTiles runat="server" ID="UserPostTiles" />
+            <!--<custom:PostTiles runat="server" ID="UserPostTiles" />-->
+            @MyHelpers.PostTileList(UserPosts)
         </div>
     </div>
     }
-    @if (CategoryPosts.Any())
+    @if (CategoryPosts.Count > 0)
     {
     <div class="bs-container">
         <h3>Other posts: @Category.CategoryName</h3>
     </div>
     <div class="bs-container">
         <div class="bs-row bs-row-4">
-            <custom:PostTiles runat="server" ID="CategoryPostTiles" />
+            <!--<custom:PostTiles runat="server" ID="CategoryPostTiles" />-->
+            @MyHelpers.PostTileList(CategoryPosts)
         </div>
     </div>
     }
