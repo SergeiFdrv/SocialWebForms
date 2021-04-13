@@ -2,16 +2,30 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<meta http-equiv="refresh" content="60" />--><!-- refresh page every <content value> seconds -->
     <link rel="stylesheet" href="~/Content/Style.css" />
     <link rel="icon" href="~/favicon.ico" type="image/x-icon">
     <title>@ViewBag.Title</title>
 </head>
 <body>
     @{ 
-        var CurrentUser = new WebApp.DataClassLibrary.Models.User()
+        WebApp.DataClassLibrary.Models.User CurrentUser = null;
+        var identity = User?.Identity;
+        if (identity?.IsAuthenticated ?? false)
         {
-            UserName = "Mock"
-        };
+            CurrentUser = GetEntity(identity.Name);
+        }
+    }
+    @functions {
+        WebApp.DataClassLibrary.Models.User GetEntity(string name)
+        {
+            WebApp.DataClassLibrary.Models.User user;
+            using (WebApp.DataClassLibrary.DBContext context = new WebApp.DataClassLibrary.DBContext())
+            {
+                user = context.Users.FirstOrDefault(u => u.UserLogin == name);
+            }
+            return user;
+        }
     }
     <div id="MainMasterForm">
         <div>
@@ -28,10 +42,9 @@
                     </nav>
                 </div>
                 <div class="headerProfile">
-                    @{
-                    if (System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
+                @{
+                    if ((identity?.IsAuthenticated ?? false) && CurrentUser != null)
                     {
-                        //if (CurrentUser == null) SignOut();
                         <p class="popupTrigger" onmouseover="setUserPopupDisplay('block')">@CurrentUser.UserName</p>
                         <div id="userpopup" class="popup verticalMenu" style="display: none;">
                             <p style="text-align: end;">@CurrentUser.UserName</p>
@@ -49,7 +62,7 @@
                             <!--<a href="/login">@Resources.Language.LogIn</a>-->
                         </span>
                     }
-                    }
+                }
                 </div>
             </header>
             <div id="pageContent">
