@@ -1,12 +1,14 @@
-﻿@using WebApp.DataClassLibrary.Models;
+﻿@using WebApp.DataClassLibrary;
+@using WebApp.DataClassLibrary.Models;
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Main page";
-    var posts = new List<Post>
+    List<Post> posts;
+    using (DBContext context = new DBContext())
     {
-        new Post { PostID = 0, PostTitle = "T I T L E" }
-    };
+        posts = context.Set<Post>().OrderByDescending(p => p.PostDateUTC).ToList();
+    }
 }
 
 <div>
@@ -16,7 +18,6 @@
     </div>
     <div class="bs-container">
         <div class="bs-row bs-row-4">
-            <!--<custom:PostTiles ID="RecentPostTiles" />-->
             @MyHelpers.PostTileList(posts)
         </div>
     </div>

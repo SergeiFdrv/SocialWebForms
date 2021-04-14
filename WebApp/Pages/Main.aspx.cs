@@ -15,7 +15,8 @@ namespace WebApp.Pages
             using (var ctxt = new DBContext())
             {
                 Tags = ctxt.Hashtags.ToList();
-                Posts = ctxt.Posts.Include(p => p.PostAuthor).ToList();
+                Posts = ctxt.Posts.Include(p => p.PostAuthor)
+                    .OrderByDescending(p => p.PostDateUTC).ToList();
                 RecentPostTiles.Posts = Posts;
             }
         }

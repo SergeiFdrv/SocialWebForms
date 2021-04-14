@@ -1,11 +1,16 @@
-﻿
+﻿@using WebApp.DataClassLibrary;
+@using WebApp.DataClassLibrary.Models;
 @{
-    ViewBag.Title = "Post";
-    var Post = new WebApp.DataClassLibrary.Models.Post();
-    var Category = WebApp.DataClassLibrary.Categories.GetCategory(0);
-    var PostComments = new List<WebApp.DataClassLibrary.Models.Comment>();
-    var UserPosts = new List<WebApp.DataClassLibrary.Models.Post>();
-    var CategoryPosts = new List<WebApp.DataClassLibrary.Models.Post>();
+    var Post = Model as Post;
+    var Category = Categories.GetCategory(Post.PostCategoryID ?? 0);
+    var PostComments = Post.Comments;
+    var UserPosts = Post.PostAuthor.Posts;
+    List<Post> CategoryPosts;
+    using (DBContext context = new DBContext())
+    {
+        CategoryPosts = context.Posts.Where(p => p.PostCategoryID == Category.CategoryID).ToList();
+    }
+    ViewBag.Title = Post.PostTitle;
 }
 
 <div>
@@ -15,7 +20,7 @@
     </div>
     <div class="bs-container">
         <div class="postContent">
-            @Server.HtmlDecode(Post.PostContent)
+            @Html.Raw(Server.HtmlDecode(Post.PostContent))
         </div>
     </div>
     <div class="bs-container childrenInlineBlock">
@@ -51,7 +56,6 @@
     @if (PostComments.Count > 0)
     {
     <div class="bs-container">
-        <!--<custom:CommentSection runat="server" ID="PostCommentSection" />-->
         @MyHelpers.CommentSection(PostComments)
     </div>
     }
@@ -68,7 +72,6 @@
     </div>
     <div class="bs-container">
         <div class="bs-row bs-row-4">
-            <!--<custom:PostTiles runat="server" ID="UserPostTiles" />-->
             @MyHelpers.PostTileList(UserPosts)
         </div>
     </div>
@@ -80,7 +83,6 @@
     </div>
     <div class="bs-container">
         <div class="bs-row bs-row-4">
-            <!--<custom:PostTiles runat="server" ID="CategoryPostTiles" />-->
             @MyHelpers.PostTileList(CategoryPosts)
         </div>
     </div>

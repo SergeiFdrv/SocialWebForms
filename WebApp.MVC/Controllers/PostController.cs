@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,30 +13,15 @@ namespace WebApp.MVC.Controllers
     public class PostController : Controller
     {
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(int id, string name = "")
         {
-            return View();
-        }
-
-        // GET: Post
-        public ActionResult Index(int id)
-        {
-            ViewResult res = null;
             using (DBContext context = new DBContext())
             {
-                var post = context.Posts.Find(id);
-                if (post != null)
-                {
-                    PostModel model = new PostModel
-                    {
-                        Title = post.PostTitle,
-                        Content = post.PostContent,
-                        CategoryID = post.PostCategoryID
-                    };
-                    res = View(model);
-                }
+                var post = context.Posts.Include(p => p.Comments).Include(p => p.PostTagPairs)
+                    .Include(p => p.PostAuthor).ThenInclude(u => u.Posts)
+                    .FirstOrDefault(p => p.PostID == id);
+                return View(post);
             }
-            return res ?? View();
         }
 
         public ActionResult Edit()
