@@ -51,19 +51,12 @@ namespace WebApp.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(PostModel model)
+        public ActionResult Edit(Post post)
         {
             if (ModelState.IsValid)
             {
                 using (DBContext context = new DBContext())
                 {
-                    var post = new Post
-                    {
-                        PostTitle = model.Title,
-                        PostContent = model.Content,
-                        PostCategoryID = model.CategoryID,
-                        PostAuthor = context.Users.Find(model.Author)
-                    };
                     try
                     {
                         context.Update(post);
@@ -75,7 +68,7 @@ namespace WebApp.MVC.Controllers
                     return RedirectToAction("Index", "Post", new { id = post.PostID });
                 }
             }
-            return View(model);
+            return View(post);
         }
     }
 }

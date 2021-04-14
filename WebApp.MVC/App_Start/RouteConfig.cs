@@ -20,11 +20,11 @@ namespace WebApp.MVC
                 constraints: new { id = "\\d+" }
             );
 
-            routes.MapRoute(
+            /*routes.MapRoute(
                 name: "DefaultNoID",
-                url: "{controller}/{name}",
+                url: "{controller}/{id}",
                 defaults: new { controller = "Home", action = "Index" }
-            );
+            );*/
 
             routes.MapRoute(
                 name: "Default",

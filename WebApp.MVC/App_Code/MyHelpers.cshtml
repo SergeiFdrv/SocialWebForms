@@ -5,7 +5,7 @@
     foreach (var c in categories)
     {
         <span>
-            <a href="/category/@c.CategorySlug">@c.CategoryName</a>
+            <a href="/category/@c.CategoryID/@c.CategorySlug">@c.CategoryName</a>
         </span>
     }
 }
@@ -38,7 +38,7 @@
                         if (p.PostAuthor.UserLogin == System.Web.HttpContext.Current.User?.Identity.Name)
                         {
                             @(new HtmlString("("))
-                            <a href="<%= GetRouteUrl(" user-editpost", new { id=p.PostID }) %>">Edit</a>
+                            <a href="/post/edit/@p.PostID">Edit</a>
                             @(new HtmlString(")"))
                         }
                     }

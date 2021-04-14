@@ -10,9 +10,9 @@ namespace WebApp.MVC.Controllers
 {
     public class CategoryController : Controller
     {
-        public ActionResult Index(string name)
+        public ActionResult Index(int id, string name)
         {
-            Category category = Categories.GetCategory(name);
+            Category category = Categories.GetCategory(id) ?? Categories.GetCategory(name);
             if (category == null)
             {
                 Response.StatusCode = 404;
