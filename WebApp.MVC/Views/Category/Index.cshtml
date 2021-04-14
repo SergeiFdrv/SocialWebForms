@@ -1,0 +1,26 @@
+﻿@using WebApp.DataClassLibrary;
+@using WebApp.DataClassLibrary.Models;
+@{
+    var MainCategory = Model as Category;
+    ViewBag.Title = MainCategory.CategoryName;
+    List<Post> posts;
+    using (DBContext context = new DBContext())
+    {
+        posts = context.Posts
+            .Where(p => p.PostCategoryID == MainCategory.CategoryID)
+            .OrderByDescending(p => p.PostDateUTC).ToList();
+    }
+}
+<div>
+    <div>
+        <h3>@MainCategory.CategoryName</h3>
+        <p>@MainCategory.CategoryDescription</p>
+    </div>
+    <div>
+        <div class="bs-container">
+            <div class="bs-row bs-row-4">
+                @MyHelpers.PostTileList(posts)
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,6 +21,12 @@ namespace WebApp.MVC
             );
 
             routes.MapRoute(
+                name: "DefaultNoID",
+                url: "{controller}/{name}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
